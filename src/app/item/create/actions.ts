@@ -5,7 +5,15 @@ import { auth } from "@/auth";
 import { database } from "@/db/database";
 import { items } from "@/db/schema";
 
-export async function createItemAction(formData: FormData) {
+export async function createItemAction({
+  name,
+  startingPrice,
+  fileName,
+}: {
+  name: string;
+  startingPrice: number;
+  fileName: string;
+}) {
   const session = await auth();
 
   if (!session) {
@@ -18,14 +26,11 @@ export async function createItemAction(formData: FormData) {
     throw new Error("Unauthorized");
   }
 
-  const startingPrice = formData.get("startingPrice") as string;
-
-  const priceAsCents = Math.floor(parseFloat(startingPrice) * 100);
-
   await database.insert(items).values({
-    name: formData.get("name") as string,
-    startingPrice: priceAsCents,
+    name,
+    startingPrice,
     userId: user.id,
+    fileKey: fileName,
   });
 
   redirect("/");
