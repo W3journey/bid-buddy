@@ -25,7 +25,14 @@ export const ItemCard = ({ item }: { item: Item }) => {
         />
         <CardTitle className="capitalize">{item.name}</CardTitle>
       </CardHeader>
-      <CardContent>Price: {formatToDollar(item.startingPrice)}</CardContent>
+      <CardContent className="flex flex-col">
+        {item.currentBid ? (
+          <span>Current Price: {formatToDollar(item.currentBid)}</span>
+        ) : (
+          <span>Starting Bid: {formatToDollar(item.startingPrice)}</span>
+        )}
+        <span>Bid Interval: {formatToDollar(item.bidInterval)}</span>
+      </CardContent>
       <CardFooter className="flex justify-end">
         <Button asChild>
           <Link href={`/items/${item.id}`}>Place Bid</Link>

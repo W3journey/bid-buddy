@@ -1,9 +1,9 @@
 import { ItemCard } from "@/components/item-card";
 import { PageTitle } from "@/components/ui/page-title";
-import { database } from "@/db/database";
+import { getAllItems } from "@/data-access/items";
 
 export default async function Home() {
-  const allItems = await database.query.items.findMany();
+  const allItems = await getAllItems();
 
   return (
     <main className="space-y-8">
