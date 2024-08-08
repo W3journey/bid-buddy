@@ -1,8 +1,16 @@
 import Image from "next/image";
 
-import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { formatPrice, getImageUrl } from "@/lib/utils";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { formatToDollar, getImageUrl } from "@/lib/utils";
 import { Item } from "@/db/schema";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const ItemCard = ({ item }: { item: Item }) => {
   return (
@@ -17,7 +25,12 @@ export const ItemCard = ({ item }: { item: Item }) => {
         />
         <CardTitle className="capitalize">{item.name}</CardTitle>
       </CardHeader>
-      <CardFooter>Price: {formatPrice(item.startingPrice)}</CardFooter>
+      <CardContent>Price: {formatToDollar(item.startingPrice)}</CardContent>
+      <CardFooter className="flex justify-end">
+        <Button asChild>
+          <Link href={`/items/${item.id}`}>Place Bid</Link>
+        </Button>
+      </CardFooter>
     </Card>
   );
 };

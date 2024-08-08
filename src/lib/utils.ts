@@ -16,13 +16,13 @@ export function getImageUrl(fileName: string) {
 }
 
 /**
- * Format price
- * @param price price in cents
- * @returns {string} formatted price
+ * Convert cents to dollar amount
+ * @param cents number in cents
+ * @returns {string} formatted dollar amount
  */
-export function formatPrice(price: number) {
+export function formatToDollar(cents: number) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
-  }).format(price / 100);
+  }).format(cents / 100);
 }

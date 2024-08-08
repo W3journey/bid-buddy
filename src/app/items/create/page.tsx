@@ -4,8 +4,9 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { createItemAction } from "@/app/item/create/actions";
+import { createItemAction } from "@/app/items/create/actions";
 import { UploadButton } from "@/lib/uploadthing";
+import { PageTitle } from "@/components/ui/page-title";
 
 export default function CreatePage() {
   const [fileName, setFileName] = useState<string | undefined>(undefined);
@@ -31,8 +32,8 @@ export default function CreatePage() {
   };
 
   return (
-    <main className="container mx-auto space-y-8 py-12">
-      <h1 className="text-4xl font-bold">Post an Item</h1>
+    <main className="space-y-8">
+      <PageTitle>Post an Item</PageTitle>
       <form
         className="flex max-w-lg flex-col space-y-4 rounded-xl border p-8"
         onSubmit={(e) => handleSubmit(e)}

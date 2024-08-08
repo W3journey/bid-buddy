@@ -1,13 +1,13 @@
-import { signIn } from "@/auth"
-import { Button } from "@/components/ui/button"
-import { Github } from "lucide-react"
+import { signIn } from "@/auth";
+import { Button } from "@/components/ui/button";
+import { Github } from "lucide-react";
 
 export function SignIn() {
   return (
     <form
       action={async () => {
-        "use server"
-        await signIn("github")
+        "use server";
+        await signIn("github");
       }}
     >
       <Button type="submit" className="space-x-2" variant={"secondary"}>
@@ -15,5 +15,5 @@ export function SignIn() {
         <Github />
       </Button>
     </form>
-  )
+  );
 }

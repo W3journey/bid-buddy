@@ -4,6 +4,24 @@ import { SignOut } from "@/components/sign-out";
 import Image from "next/image";
 import Link from "next/link";
 
+const links = [
+  {
+    id: 1,
+    href: "/",
+    label: "All Auctions",
+  },
+  {
+    id: 2,
+    href: "/items/create",
+    label: "Create Auction",
+  },
+  {
+    id: 3,
+    href: "/auctions",
+    label: "My Auctions",
+  },
+];
+
 export async function Header() {
   const session = await auth();
 
@@ -15,13 +33,16 @@ export async function Header() {
             <Image src="/logo.png" width={"50"} height={"50"} alt="Logo" />
             BidBuddy.com
           </Link>
-          <div className="flex items-center">
-            <Link
-              href={"/item/create"}
-              className="flex items-center gap-1 hover:underline"
-            >
-              Auction an Item
-            </Link>
+          <div className="flex items-center gap-8">
+            {links.map((link) => (
+              <Link
+                key={link.id}
+                href={link.href}
+                className="flex items-center gap-1 hover:underline"
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
         </div>
 
