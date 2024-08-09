@@ -7,6 +7,7 @@ import { formatToDollar, getImageUrl } from "@/lib/utils";
 import { createBidAction } from "@/app/items/[itemId]/actions";
 import { getBidsForItem } from "@/data-access/bids";
 import { getItem } from "@/data-access/items";
+import { auth, signIn } from "@/auth";
 
 function formatTimestamp(timestamp: Date) {
   return formatDistance(timestamp, new Date());
@@ -17,6 +18,7 @@ export default async function ItemPage({
 }: {
   params: { itemId: string };
 }) {
+  const session = await auth();
   const item = await getItem(parseInt(itemId));
   const allBids = await getBidsForItem(parseInt(itemId));
   const hasBids = allBids.length > 0;
@@ -74,10 +76,19 @@ export default async function ItemPage({
           </div>
         </div>
 
-        <div className="flex-1 space-y-8">
+        <div className="flex-1 space-y-6">
           <div className="flex justify-between">
             <h2 className="text-2xl font-bold">Current Bids</h2>
-            <form action={createBidAction.bind(null, parseInt(itemId))}>
+            <form
+              action={
+                session?.user
+                  ? createBidAction.bind(null, parseInt(itemId))
+                  : async () => {
+                      "use server";
+                      await signIn();
+                    }
+              }
+            >
               <Button type="submit">Place a Bid</Button>
             </form>
           </div>
@@ -105,7 +116,16 @@ export default async function ItemPage({
                 height={200}
               />
               <h2 className="text-2xl font-bold">No bids yet</h2>
-              <form action={createBidAction.bind(null, parseInt(itemId))}>
+              <form
+                action={
+                  session?.user
+                    ? createBidAction.bind(null, parseInt(itemId))
+                    : async () => {
+                        "use server";
+                        await signIn();
+                      }
+                }
+              >
                 <Button type="submit">Place a Bid</Button>
               </form>
             </div>

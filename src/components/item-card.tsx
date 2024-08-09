@@ -21,7 +21,7 @@ export const ItemCard = ({ item }: { item: Item }) => {
           alt={item.name}
           width={300}
           height={300}
-          className="rounded-lg"
+          className="min-h-[260px] rounded-lg"
         />
         <CardTitle className="capitalize">{item.name}</CardTitle>
       </CardHeader>

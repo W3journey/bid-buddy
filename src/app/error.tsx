@@ -1,5 +1,6 @@
 "use client";
 
+import { SignInClient } from "@/components/auth/sign-in-client";
 import { Button } from "@/components/ui/button";
 import { PageTitle } from "@/components/ui/page-title";
 import { Github } from "lucide-react";
@@ -30,14 +31,7 @@ export default function Error({
         />
         <PageTitle>Unauthorized</PageTitle>
         <p>You need to be logged in to view this page.</p>
-        <Button
-          type="submit"
-          className="space-x-2"
-          onClick={() => signIn("github", { callbackUrl: "/" })}
-        >
-          <span>Signin with GitHub</span>
-          <Github />
-        </Button>
+        <SignInClient />
       </div>
     );
   }
